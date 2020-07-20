@@ -14175,7 +14175,7 @@ Since there are plenty of public data sets for the pandemic, I wanted to create 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Filter out SettingWithCopyWarning that appears when summing data frame columns</span>
@@ -14194,7 +14194,7 @@ Since there are plenty of public data sets for the pandemic, I wanted to create 
     <span class="n">m</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">c_df</span><span class="o">.</span><span class="n">date_epoch</span><span class="p">,</span> <span class="n">c_df</span><span class="o">.</span><span class="n">cases_and_deaths_pct</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">policy_effectiveness</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;trends&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span>
 
-<span class="n">policy_effectiveness</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">policy_effectiveness</span><span class="o">.</span><span class="n">trends</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span>  
+<span class="n">policy_effectiveness</span><span class="p">[</span><span class="s1">&#39;ranking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">policy_effectiveness</span><span class="o">.</span><span class="n">trends</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span>  
 
 <span class="n">policy_effectiveness</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
@@ -14209,7 +14209,7 @@ Since there are plenty of public data sets for the pandemic, I wanted to create 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[22]:</div>
+    <div class="prompt output_prompt">Out[38]:</div>
 
 
 
@@ -14234,7 +14234,7 @@ Since there are plenty of public data sets for the pandemic, I wanted to create 
       <th></th>
       <th>iso_code</th>
       <th>trends</th>
-      <th>rank</th>
+      <th>ranking</th>
     </tr>
   </thead>
   <tbody>
@@ -14319,8 +14319,111 @@ Since there are plenty of public data sets for the pandemic, I wanted to create 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While policy effectiveness plays a significant role in evaluating effort, it is not enough to cover the whole context needed to be considered to yield accurate values. Countries have differing economic standings and these make a critical impact on the options and limitations they have in order to take measures against the coronavirus. To rank based on how well did a country make use of their resources at hand, I am going to utilize the stringency index and GDP per capita.</p>
+<p>While policy effectiveness plays a significant role in evaluating effort, it is not enough to cover the whole context needed to be considered to yield accurate values. Countries have differing economic standings and these make a critical impact on the options and limitations they have in order to take measures against the coronavirus. To rank based on how well did a country make use of their resources at hand, I am going to utilize the stringency index and GDP per capita. The deviation from the linear trend of stringency indes versus GDP per capita will be ranked for calculating relative use of resources.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">([</span><span class="n">df</span><span class="o">.</span><span class="n">stringency_index</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">gdp_per_capita</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[40]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fbb6b980940&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As a side observation, it is interesting to note that there appears to be a negative correlation between GDP per capita and the stringency index. This implies looser policies are being implemented by better-off nations. Of course, looser does not equate to less effective. This observation could have further ties with government form, for there are a far greater number of relatively less affluent countries with more central governments. This makes it possible for stricter policies to be implemented in a streamlined way.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.2-US-vs.-World">4.2 US vs. World<a class="anchor-link" href="#4.2-US-vs.-World">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.-Hypothesis-Testing-and-Machine-Learning">5. Hypothesis Testing and Machine Learning<a class="anchor-link" href="#5.-Hypothesis-Testing-and-Machine-Learning">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="6.-Conclusion">6. Conclusion<a class="anchor-link" href="#6.-Conclusion">&#182;</a></h2>
 </div>
 </div>
 </div>
